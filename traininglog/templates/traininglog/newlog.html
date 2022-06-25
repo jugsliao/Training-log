@@ -1,0 +1,14 @@
+{% extends 'traininglog/base.html' %}
+
+{% block title %}
+newlog
+{% endblock %}
+
+  {% block content %}
+    <h4>Add a new question:</h4>
+    <form action="{% url 'traininglog:newlog' %}" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  {% endblock content %}

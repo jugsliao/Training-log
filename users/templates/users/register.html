@@ -1,0 +1,28 @@
+{% extends 'traininglog/base.html' %}
+<!DOCTYPE html>
+{% block content %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>register</title>
+  </head>
+  <body>
+    <p1 class="lead">Sign up page</p1>
+    <br>
+    <hr>
+    <form class="register" action="{% url 'users:register' %}" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+    <br>
+    {{form.errors}}
+    <p>Already have an account?<a href="/login"> Login</a></p>
+    <script type="text/javascript">
+      var help_text = document.getElementsByClassName('helptext')
+
+
+    </script>
+  </body>
+</html>
+{% endblock content %}

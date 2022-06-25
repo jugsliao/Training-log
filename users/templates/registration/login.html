@@ -1,0 +1,21 @@
+{% extends "traininglog/base.html" %}
+
+{% block title %}
+Login Here
+{% endblock %}
+
+{% block content %}
+  <h1>Login</h1>
+  <br>
+  {% for message in messages %}
+		<p>{{message}}</p>
+	{% endfor %}	
+  <form method="post" class="from-group">
+  	{% csrf_token %}
+  	{{form.as_p}}
+    <p>Don't have an accoount? Create one now!</p>
+    <a href="/users/register">Sign up</a>
+    <br>
+  	<button type="submit" class="btn btn-success">Login</button>
+  </form>
+{% endblock %}
