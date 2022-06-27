@@ -54,7 +54,7 @@ def deletelog(request, log_id):
 
     if request.method == 'POST':
         log.delete()
-        return HttpResponseRedirect(reverse('traininglog:log', args=[log.id]))
+        return HttpResponseRedirect(reverse('traininglog:logs'))
 
     context = {'log':log}
     return render(request, 'traininglog/deletelog.html', context)
