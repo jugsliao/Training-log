@@ -6,5 +6,6 @@ app_name = "traininglog"
 urlpatterns = [
     path('', views.home, name='home'),
     path('newlog/', views.newlog, name='newlog'),
-    # path('log/', views.LogView.as_view(), name='log'),
+    path('logs/', views.LogsView.as_view(), name='logs'),
+    path('logs/<int:log_id>', views.log, name='log')
 ]

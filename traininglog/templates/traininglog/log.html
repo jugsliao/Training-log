@@ -1,0 +1,18 @@
+{% extends 'traininglog/base.html' %}
+
+{% block title %}
+log
+{% endblock %}
+
+    {% block content %}
+        <h1>training: 6x400m</h1>
+        <p>timings: </p>
+        <ol>
+            <li>{{log.time1}}</li>
+            <li>{{log.time2}}</li>
+            <li>{{log.time3}}</li>
+            <li>{{log.time4}}</li>
+            <li>{{log.time5}}</li>
+            <li>{{log.time6}}</li>
+        </ol>
+    {% endblock content %}

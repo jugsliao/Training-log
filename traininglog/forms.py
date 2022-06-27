@@ -15,34 +15,5 @@ class LogForm1(forms.ModelForm):
         model = Log1
         fields = ['time1', 'time2', 'time3', 'time4', 'time5', 'time6']
         labels = {'time': ''}
-        exclude = ['user', 'pub_date']
+        # exclude = ['user', 'pub_date']
 
-# # for 3x800m
-# class LogForm2(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#             super().__init__(*args, **kwargs)      
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-
-
-#     class Meta:
-#         model = Log
-#         fields = '__all__'
-#         exclude = ['user', 'pub_date']
-
-# # # for 30-45 mins long run
-# class LogForm3(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#             super().__init__(*args, **kwargs)      
-#             self.fields['time'].widget.attrs.update({'class':"form-control"})
-
-#     class Meta:
-#         model = Log
-#         fields = '__all__'
-#         exclude = ['user', 'pub_date']

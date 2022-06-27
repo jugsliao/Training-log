@@ -8,14 +8,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Log1(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) #when profile is deleted, user is not but not vice vers
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="log", null=True) #when profile is deleted, user is not but not vice vers
     time1 = models.CharField(max_length=50)
     time2 = models.CharField(max_length=50)
     time3 = models.CharField(max_length=50)
     time4 = models.CharField(max_length=50)
     time5 = models.CharField(max_length=50)
     time6 = models.CharField(max_length=50)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(auto_now_add=True)
 
     @admin.display(
         boolean=True,
@@ -27,5 +27,4 @@ class Log1(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def __str__(self):
-        return self.user.username + " log"
-
+        return str(self.pub_date)

@@ -31,16 +31,22 @@ def newlog(request):
         form = LogForm1(data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('traininglog:home'))
+            return HttpResponseRedirect(reverse("traininglog:home"))
 
     context = {'form': form}
     return render(request, 'traininglog/newlog.html', context)
 
-# class LogsView(generic.ListView):
-#     template_name = 'first_app/questionhub.html'
-#     context_object_name = 'questions'
+class LogsView(generic.ListView):
+    template_name = 'traininglog/logs.html'
+    context_object_name = 'logs'
 
-#     def get_queryset(self):
-#         """Return the last five published questions."""
-#         return Log1.objects.order_by('-date_added')
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Log1.objects.order_by('-pub_date') 
+
+def log(request, log_id):
+    '''show the log on that date'''
+    log = Log1.objects.get(id=log_id)
+    context = {'log': log}
+    return render(request, 'traininglog/log.html', context)
 
