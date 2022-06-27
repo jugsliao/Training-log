@@ -15,4 +15,9 @@ log
             <li>{{log.time5}}</li>
             <li>{{log.time6}}</li>
         </ol>
+        <br>
+        <p>
+        <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-success">Edit</button></a>
+        <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+        </p>
     {% endblock content %}

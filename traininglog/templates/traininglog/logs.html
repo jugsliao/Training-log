@@ -6,10 +6,14 @@ Logs
 
   {% block content %}
   <h1>Track your logs here!</h1>
-    <ul>
       {% for log in logs %}
-        <li><a href="{% url 'traininglog:log' log.id %}">{{log}}</a></li>
-        <br>
+        <ul>
+          <li>
+          <div class="log">
+            <p><a href="{% url 'traininglog:log' log.id %}">{{log}}</a></p>
+            <hr>
+          </div>
+          </li>
+        </ul>
       {% endfor %}
-    </ul>
   {% endblock content %}

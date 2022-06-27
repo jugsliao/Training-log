@@ -8,13 +8,29 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Log1(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="log", null=True) #when profile is deleted, user is not but not vice vers
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="log1", null=True) #when profile is deleted, user is not but not vice vers
     time1 = models.CharField(max_length=50)
     time2 = models.CharField(max_length=50)
     time3 = models.CharField(max_length=50)
     time4 = models.CharField(max_length=50)
     time5 = models.CharField(max_length=50)
     time6 = models.CharField(max_length=50)
+    pub_date = models.DateField(auto_now_add=True)
+    # pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "6x400m -" + str(self.pub_date)
+
+class Log2(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="log2", null=True) #when profile is deleted, user is not but not vice vers
+    time1 = models.CharField(max_length=50)
+    time2 = models.CharField(max_length=50)
+    time3 = models.CharField(max_length=50)
+    time4 = models.CharField(max_length=50)
+    time5 = models.CharField(max_length=50)
+    time6 = models.CharField(max_length=50)
+    time7 = models.CharField(max_length=50)
+    time8 = models.CharField(max_length=50)
     pub_date = models.DateTimeField(auto_now_add=True)
 
     @admin.display(
@@ -27,4 +43,4 @@ class Log1(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def __str__(self):
-        return str(self.pub_date)
+        return "3x800m -" + str(self.pub_date)

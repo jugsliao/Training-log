@@ -13,14 +13,7 @@ def home(request):
     '''render the home page'''
     return render(request, 'traininglog/home.html')
 
-# def question(request, question_id):
-#     '''show a single question with its topic and explaination'''
-#     question = Log.objects.get(id=question_id)
-#     answer = question.answer_set.order_by('-date_added') 
-#     context = {'question': question, 'answer': answer}
-#     return render(request, 'first_app/question.html', context)
-
-# @login_required
+@login_required
 def newlog(request):
     '''adding a new question'''
     if request.method != 'POST':
@@ -36,12 +29,41 @@ def newlog(request):
     context = {'form': form}
     return render(request, 'traininglog/newlog.html', context)
 
+@login_required
+def editlog(request, log_id):
+    '''editing an answer'''
+    log = Log1.objects.get(id=log_id)
+
+    if request.method != 'POST':
+        #when first start editing, pre-fill form with the current answer
+        form = LogForm1(instance=log)
+    else:
+        #POST data submitted, proccesing date_added
+        form = LogForm1(instance=log, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('traininglog:log', args=[log.id]))
+
+    context = {'log': log, 'form': form}
+    return render(request, 'traininglog/editlog.html', context)
+
+@login_required
+def deletelog(request, log_id):
+    '''deleting an answer'''
+    log = Log1.objects.get(id=log_id)
+
+    if request.method == 'POST':
+        log.delete()
+        return HttpResponseRedirect(reverse('traininglog:log', args=[log.id]))
+
+    context = {'log':log}
+    return render(request, 'traininglog/deletelog.html', context)
+
 class LogsView(generic.ListView):
     template_name = 'traininglog/logs.html'
     context_object_name = 'logs'
 
     def get_queryset(self):
-        """Return the last five published questions."""
         return Log1.objects.order_by('-pub_date') 
 
 def log(request, log_id):

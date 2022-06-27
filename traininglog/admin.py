@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-# from .models import Log
+from .models import Log1
 
 # Register your models here.
 
@@ -19,4 +19,4 @@ from django.contrib import admin
 #     list_filter = ['pub_date']
 #     search_fields = ['question_text']
 
-# admin.site.register(Question, QuestionAdmin)
+admin.site.register(Log1)
