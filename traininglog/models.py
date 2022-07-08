@@ -26,11 +26,6 @@ class Log2(models.Model):
     time1 = models.CharField(max_length=50)
     time2 = models.CharField(max_length=50)
     time3 = models.CharField(max_length=50)
-    time4 = models.CharField(max_length=50)
-    time5 = models.CharField(max_length=50)
-    time6 = models.CharField(max_length=50)
-    time7 = models.CharField(max_length=50)
-    time8 = models.CharField(max_length=50)
     pub_date = models.DateTimeField(auto_now_add=True)
 
     @admin.display(

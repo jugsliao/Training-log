@@ -5,8 +5,8 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
-from .forms import LogForm1
-from .models import Log1
+from .forms import LogForm1, LogForm2
+from .models import Log1, Log2
 
 # Create your views here.
 def home(request):
@@ -14,7 +14,39 @@ def home(request):
     return render(request, 'traininglog/home.html')
 
 @login_required
-def newlog(request):
+def newlog1(request):
+    '''adding a new question'''
+    if request.method != 'POST':
+        #if no data is submitted, create a blank for
+        form = LogForm1()
+    else:
+        # POST data is submitted; process date_added
+        form = LogForm1(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("traininglog:home"))
+
+    context = {'form': form}
+    return render(request, 'traininglog/newlog1.html', context)
+
+@login_required
+def newlog2(request):
+    '''adding a new question'''
+    if request.method != 'POST':
+        #if no data is submitted, create a blank for
+        form = LogForm2()
+    else:
+        # POST data is submitted; process date_added
+        form = LogForm2(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("traininglog:home"))
+
+    context = {'form': form}
+    return render(request, 'traininglog/newlog2.html', context)
+
+@login_required
+def newlog3(request):
     '''adding a new question'''
     if request.method != 'POST':
         #if no data is submitted, create a blank for
