@@ -13,6 +13,9 @@ def home(request):
     '''render the home page'''
     return render(request, 'traininglog/home.html')
 
+def chooselog(request):
+    return render(request, 'traininglog/chooselog.html')
+
 @login_required
 def newlog1(request):
     '''adding a new question'''
