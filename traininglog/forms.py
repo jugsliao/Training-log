@@ -14,4 +14,3 @@ class LogForm2(forms.ModelForm):
         model = Log2
         fields = ['time1', 'time2', 'time3']
         labels = {'time': ''}
-

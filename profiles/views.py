@@ -13,12 +13,6 @@ class ProfilesList(ListView):
      template_name = 'profiles/profiles.html'
      model = Profile 
 
-def profile(request, profile_id):
-     '''show a single profile with its details'''
-     profile = Profile.objects.get(id=profile_id)
-     context = {'profile': profile}
-     return render(request, 'profiles/profile.html', context)
-
 def myprofile(request):
      return render(request, 'profiles/myprofile.html') 
 

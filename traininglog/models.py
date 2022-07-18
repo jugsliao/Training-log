@@ -39,3 +39,4 @@ class Log2(models.Model):
 
     def __str__(self):
         return "3x800m -" + str(self.pub_date)
+

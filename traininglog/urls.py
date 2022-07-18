@@ -12,5 +12,5 @@ urlpatterns = [
     path('editlog/<int:log_id>', views.editlog, name='editlog'),
     path('deletelog/<int:log_id>', views.deletelog, name='deletelog'),
     path('logs/', views.LogsView.as_view(), name='logs'),
-    path('logs/<int:log_id>', views.log, name='log')
+    path('logs/<int:log_id>', views.log, name='log'),
 ]
