@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'traininglog.apps.TraininglogConfig',
     'users.apps.UsersConfig',
-    'profiles.apps.ProfilesConfig',
 ]
 
 MIDDLEWARE = [

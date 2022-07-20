@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -13,10 +14,5 @@ class Profile(models.Model):
 
     # def save(self):
     #     super().save()
+    #     weeks_to_goal = (self.goal_date - datetime.now()) / 7
 
-    #     img = Image.open(self.image.path)
-
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300, 300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
