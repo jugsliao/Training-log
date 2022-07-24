@@ -7,29 +7,23 @@ from .forms import RegisterForm
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileUpdateForm
+
 
 # Create your views here.
 
 def registration(request):
     if request.method == 'POST':
-        r_form = RegisterForm(request.POST)
-        p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
-        if r_form.is_valid():
-            r_form.save()
-            p_form.save()
-            username = r_form.cleaned_data.get('username')
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
             messages.success(request, 'Account was successfully created for ' + username)
             return redirect('login')
     else:
-        r_form = RegisterForm()
-        p_form = ProfileUpdateForm()
+        form = RegisterForm()
 
     context = {
-        'r_form': r_form,
-        'p_form': p_form
+        'form': form,
     }
 
     return render(request, 'users/register.html', context)
@@ -51,22 +45,4 @@ def login_error(request):
     if not request.user.is_authenticated:
         return render(request, 'users/login_error.html')
 
-# @login_required
-# def profile(request):
-#     if request.method == 'POST':
-#         form = ProfileUpdateForm(request.POST,
-#                                    request.FILES,
-#                                    instance=request.user.profile)
-#         if  form.is_valid():
-#             form.save()
-#             messages.success(request, f'Your account has been updated!')
-#             return redirect('profile')
 
-#     else:
-#         form = ProfileUpdateForm(instance=request.user.profile)
-
-#     context = {
-#         'form': form
-#     }
-
-#     return render(request, 'users/profile.html', context)

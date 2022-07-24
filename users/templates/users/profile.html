@@ -5,12 +5,12 @@ profile
 {% endblock %}
 
 {% block content %}	
-  <form method="post" class="from-group">
-  	{% csrf_token %}
-  	{{form.as_p}}
-    <p>Don't have an accoount? Create one now!</p>
-    <a href="/users/register">Sign up</a>
-    <br>
-  	<button type="submit" class="btn btn-success">Login</button>
-  </form>
+<p>Profile page</p>
+	<p>{{user.profile.goal}}</p>
+	<p>{{user.profile.goal_date}}</p>
+	<form method="post" class="from-group">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input class="btn btn-primary" type="submit" value="Submit">
+	</form>
 {% endblock %}

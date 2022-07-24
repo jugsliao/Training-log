@@ -40,3 +40,16 @@ class Log2(models.Model):
     def __str__(self):
         return "3x800m -" + str(self.pub_date)
 
+class Workout(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", null=True)
+    pace = models.IntegerField(default=124)
+    goal = models.IntegerField(default=124)
+    goal_date = models.DateField(null=True)
+
+    def __str__(self):
+        return self.user.username + "Profile"
+
+    # def save(self):
+    #     super().save()
+    #     weeks_to_goal = (self.goal_date - datetime.now()) / 7
+

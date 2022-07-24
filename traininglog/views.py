@@ -3,10 +3,12 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .forms import LogForm1, LogForm2
-from .models import Log1, Log2
+from .models import Log1, Log2, User, Workout
+from .forms import WorkoutForm
 
 # Create your views here.
 def home(request):
@@ -15,7 +17,16 @@ def home(request):
     training pace = weeks left * 4seconds + target training pace
     
     '''
-    return render(request, 'traininglog/home.html')
+    # Get recent workouts for logged in user:
+    workouts = Workout.objects.filter(user__id=request.user.id)
+
+    # Gather any page data:
+    data = {
+        'workouts': workouts
+    }
+
+    # Load dashboard with data:
+    return render(request, 'traininglog/home.html', data)
 
 def chooselog(request):
     return render(request, 'traininglog/chooselog.html')
@@ -111,3 +122,25 @@ def log(request, log_id):
     context = {'log': log}
     return render(request, 'traininglog/log.html', context)
 
+@login_required
+def new_workout(request):
+    if request.method == 'POST':
+        # form = ProfileUpdateForm(request.POST,
+        #                            request.FILES,
+        #                            instance=request.user.profile)
+        form = WorkoutForm(data=request.POST)
+        if  form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated!')
+            return HttpResponseRedirect(reverse("traininglog:home"))
+
+    else:
+        form = WorkoutForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'traininlog/new_workout.html', context)
+
+   

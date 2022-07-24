@@ -12,8 +12,7 @@
     <hr>
     <form class="register" action="{% url 'users:register' %}" method="post">
       {% csrf_token %}
-      {{r_form.as_p}}
-      {{p_form.as_p}}
+      {{form.as_p}}
       <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     <br>
@@ -21,8 +20,6 @@
     <p>Already have an account?<a href="/login"> Login</a></p>
     <script type="text/javascript">
       var help_text = document.getElementsByClassName('helptext')
-
-
     </script>
   </body>
 </html>
