@@ -1,0 +1,18 @@
+{% extends 'traininglog/base.html' %}
+
+{% block title %}
+goal
+{% endblock %}
+
+  {% block content %}
+    <p></p>
+    <h4>Enter your goals for your next 2.4km!:</h4>
+    <br>
+    <form action="{% url 'traininglog:goal' %}" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button class="btn btn-outline-info" type="submit">Submit</button>
+    </form>
+  {% endblock content %}
+
+  <h1>test</h1>

@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Log1(models.Model):
@@ -40,11 +41,26 @@ class Log2(models.Model):
     def __str__(self):
         return "3x800m -" + str(self.pub_date)
 
-class Workout(models.Model):
+class Goal(models.Model):
+    Goal_choices = [
+    ('8', '8 mins'),
+    ('9', '9 mins'),
+    ('10', '10 mins'),
+    ('11', '11 mins'),
+    ('12', '12 mins'),
+    ('13', '13 mins'),
+    ('14', '14 mins'),
+    ('15', '15 mins'),
+    ('16', '16 mins'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", null=True)
-    pace = models.IntegerField(default=124)
-    goal = models.IntegerField(default=124)
-    goal_date = models.DateField(null=True)
+    goal_time = models.CharField(
+        max_length = 20,
+        choices = Goal_choices,
+        default = '12'
+        )
+    goal_date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return self.user.username + "Profile"

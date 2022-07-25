@@ -32,8 +32,8 @@
                 Welcome, {{ user.username }}
               </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'traininglog:goal' %}">Goal</a>
                   <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                  <a class="dropdown-item" href="{% url 'traininglog:new_workout' %}">Add workout</a>
                 </div>
             </li>
             {% else %}

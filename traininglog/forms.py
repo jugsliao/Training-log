@@ -1,8 +1,8 @@
 from django import forms
-from .models import Log1, Log2
-from .models import Workout
+from .models import Log1, Log2, Goal
 from django.contrib.admin import widgets
-from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
+from django.contrib.admin.widgets import  AdminDateWidget
+
 
 # for 6x400m
 class LogForm1(forms.ModelForm):
@@ -18,12 +18,14 @@ class LogForm2(forms.ModelForm):
         fields = ['time1', 'time2', 'time3']
         labels = {'time': ''}
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
-class WorkoutForm(forms.ModelForm):
+class GoalForm(forms.ModelForm):
     class Meta:
-        model = Workout
-        fields = ['goal', 'goal_date']
+        model = Goal
+        fields = ['goal_time', 'goal_date']
         widgets = {
-            "goal_date": AdminDateWidget(),
+            "goal_date": DateInput,
         }
 

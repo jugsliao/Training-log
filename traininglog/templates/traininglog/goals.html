@@ -1,0 +1,19 @@
+{% extends 'traininglog/base.html' %}
+
+{% block title %}
+Goals
+{% endblock %}
+
+  {% block content %}
+  <h1>Track your goals here!</h1>
+      {% for goal in goals %}
+        <ul>
+          <li>
+          <div class="log">
+            <p>{{goal}}</p>
+            <hr>
+          </div>
+          </li>
+        </ul>
+      {% endfor %}
+  {% endblock content %}

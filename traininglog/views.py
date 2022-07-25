@@ -4,11 +4,11 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .forms import LogForm1, LogForm2
-from .models import Log1, Log2, User, Workout
-from .forms import WorkoutForm
+from .forms import LogForm1, LogForm2, GoalForm
+from .models import Log1, Log2, User, Goal
 
 # Create your views here.
 def home(request):
@@ -18,11 +18,11 @@ def home(request):
     
     '''
     # Get recent workouts for logged in user:
-    workouts = Workout.objects.filter(user__id=request.user.id)
+    goal = Goal.objects.filter(user=request.user)
 
     # Gather any page data:
     data = {
-        'workouts': workouts
+        'goal': goal
     }
 
     # Load dashboard with data:
@@ -31,53 +31,17 @@ def home(request):
 def chooselog(request):
     return render(request, 'traininglog/chooselog.html')
 
-@login_required
-def newlog1(request):
-    '''adding a new question'''
-    if request.method != 'POST':
-        #if no data is submitted, create a blank for
-        form = LogForm1()
-    else:
-        # POST data is submitted; process date_added
-        form = LogForm1(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("traininglog:home"))
+class newlog1View(LoginRequiredMixin, generic.CreateView):
+    model = Log1
+    fields = ['time1', 'time2', 'time3', 'time4', 'time5', 'time6']
+    template_name = 'traininglog/newlog1.html'
+    
+    def get_success_url(self):
+        return reverse('traininglog:home')
 
-    context = {'form': form}
-    return render(request, 'traininglog/newlog1.html', context)
-
-# @login_required
-# def newlog2(request):
-#     '''adding a new question'''
-#     if request.method != 'POST':
-#         #if no data is submitted, create a blank for
-#         form = LogForm2()
-#     else:
-#         # POST data is submitted; process date_added
-#         form = LogForm2(data=request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse("traininglog:home"))
-
-#     context = {'form': form}
-#     return render(request, 'traininglog/newlog2.html', context)
-
-# @login_required
-# def newlog3(request):
-#     '''adding a new question'''
-#     if request.method != 'POST':
-#         #if no data is submitted, create a blank for
-#         form = LogForm1()
-#     else:
-#         # POST data is submitted; process date_added
-#         form = LogForm1(data=request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse("traininglog:home"))
-
-#     context = {'form': form}
-#     return render(request, 'traininglog/newlog.html', context)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 @login_required
 def editlog(request, log_id):
@@ -114,7 +78,7 @@ class LogsView(generic.ListView):
     context_object_name = 'logs'
 
     def get_queryset(self):
-        return Log1.objects.order_by('-pub_date') 
+        return Log1.objects.filter(user=self.request.user).order_by('-pub_date') 
 
 def log(request, log_id):
     '''show the log on that date'''
@@ -123,24 +87,39 @@ def log(request, log_id):
     return render(request, 'traininglog/log.html', context)
 
 @login_required
-def new_workout(request):
+def goal(request):
     if request.method == 'POST':
-        # form = ProfileUpdateForm(request.POST,
-        #                            request.FILES,
-        #                            instance=request.user.profile)
-        form = WorkoutForm(data=request.POST)
+        form = GoalForm(data=request.POST)
         if  form.is_valid():
             form.save()
-            messages.success(request, f'Your account has been updated!')
             return HttpResponseRedirect(reverse("traininglog:home"))
 
     else:
-        form = WorkoutForm()
+        form = GoalForm()
 
     context = {
         'form': form
     }
 
-    return render(request, 'traininlog/new_workout.html', context)
+    return render(request, 'traininglog/goal.html', context)
+
+class newGoalView(LoginRequiredMixin, generic.CreateView):
+    model = Goal
+    fields = ['goal_time', 'goal_date']
+    template_name = 'traininglog/goal.html'
+    
+    def get_success_url(self):
+        return reverse('traininglog:home')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class GoalsView(generic.ListView):
+    template_name = 'traininglog/goals.html'
+    context_object_name = 'goals'
+
+    def get_queryset(self):
+        return Goal.objects.filter(user=self.request.user)
 
    

@@ -6,31 +6,26 @@ home
 
   {% block content %}
   {% if user.is_authenticated %}
-    {% if recent_workouts %}
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">your training today is: 6x400m intervals</h5>
-              <p class="card-text">Try to hit 1.40 for every 400m and take a 1 minute break in between!</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">your goal is: {{ user.profile.goal }}</h5>
-              <p class="card-text">by {{ user.profile.goal_date }} for your ippt</p>
-            </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">your training today is: 6x400m intervals</h5>
+            <p class="card-text">Try to hit 1.40 for every 400m and take a 1 minute break in between!</p>
           </div>
         </div>
       </div>
-      <br>
-      <a class="btn btn-primary btn-lg" href="/newlog1" role="button">record log</a>
-    {% else %}
-      <h4>you dont have any workouts yet!</h4>
-      <a class="btn btn-primary btn-lg" href="/workout" role="button">Create a workout</a>
-    {% endif %}
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">your goal is: {{ workout.goal }}</h5>
+            <p class="card-text">by {{ workout.goal_date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <a class="btn btn-primary btn-lg" href="/newlog1" role="button">record log</a>
   {% else %}
     <div class="">
       <h1 class="display-4">Training Log</h1>
