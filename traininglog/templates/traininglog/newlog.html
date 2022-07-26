@@ -9,7 +9,11 @@ newlog
     <br>
     <form method="post">
       {% csrf_token %}
-      {{form.as_p}}
+      <strong>Title:</strong>
+      <p>{{form.title}}</p>
+      <br>
+      <strong>Description:</strong>
+      <p>{{form.description}}</p>
       <input class="btn btn-primary" type="submit" value="Submit">
     </form>
   {% endblock content %}

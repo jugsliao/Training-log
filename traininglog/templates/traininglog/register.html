@@ -10,7 +10,7 @@
     <p1 class="lead">Sign up page</p1>
     <br>
     <hr>
-    <form class="register" action="{% url 'users:register' %}" method="post">
+    <form class="register" action="{% url 'traininglog:register' %}" method="post">
       {% csrf_token %}
       {{form.as_p}}
       <input class="btn btn-primary" type="submit" value="Submit">

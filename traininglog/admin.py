@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Log1
+from .models import Goal, Log
 
 # Register your models here.
 
@@ -19,4 +19,5 @@ from .models import Log1
 #     list_filter = ['pub_date']
 #     search_fields = ['question_text']
 
-admin.site.register(Log1)
+admin.site.register(Log)
+admin.site.register(Goal)

@@ -5,19 +5,13 @@ log
 {% endblock %}
 
     {% block content %}
-        <h1>training: 6x400m</h1>
-        <p>timings: </p>
-        <ol>
-            <li>{{log.time1}}</li>
-            <li>{{log.time2}}</li>
-            <li>{{log.time3}}</li>
-            <li>{{log.time4}}</li>
-            <li>{{log.time5}}</li>
-            <li>{{log.time6}}</li>
-        </ol>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{log.title}}</h5>
+              <p class="card-text">{{log.description}}</p>
+              <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-success">Edit</button></a>
+              <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+            </div>
+          </div>
         <br>
-        <p>
-        <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-success">Edit</button></a>
-        <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
-        </p>
     {% endblock content %}

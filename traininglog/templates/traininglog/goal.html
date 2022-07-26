@@ -1,0 +1,14 @@
+{% extends 'traininglog/base.html' %}
+
+{% block title %}
+goal
+{% endblock %}
+
+    {% block content %}
+        <h1>These are your goals: </h1>
+        <br>
+        <p>Description: {{goal.goal_description}}</p>
+        <p>Daily: {{goal.goal_daily}}</p>
+        <p>Date: {{goal.goal_date}}</p>
+        <p></p>
+    {% endblock content %}

@@ -6,35 +6,67 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse
+from django.contrib.auth import login, authenticate, logout
+from .forms import RegisterForm
+from django.conf import settings
 
-from .forms import LogForm1, LogForm2, GoalForm
-from .models import Log1, Log2, User, Goal
+from .forms import LogForm, GoalForm
+from .models import Log, Goal
 
-# Create your views here.
+def registration(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account was successfully created for ' + username)
+            return redirect('login')
+    else:
+        form = RegisterForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'traininglog/register.html', context)
+
+def my_login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('first_app/home')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('first_app/home')
+
+def login_error(request):
+    if not request.user.is_authenticated:
+        return render(request, 'login_error.html')
+
+# # Create your views here.
 def home(request):
     '''render the home page'''
     '''
     training pace = weeks left * 4seconds + target training pace
     
     '''
-    # Get recent workouts for logged in user:
-    goal = Goal.objects.filter(user=request.user)
+    # goal = Goal.objects.filter(user=request.user)
 
-    # Gather any page data:
     data = {
-        'goal': goal
+        # 'goal': goal
     }
 
-    # Load dashboard with data:
     return render(request, 'traininglog/home.html', data)
 
-def chooselog(request):
-    return render(request, 'traininglog/chooselog.html')
-
-class newlog1View(LoginRequiredMixin, generic.CreateView):
-    model = Log1
-    fields = ['time1', 'time2', 'time3', 'time4', 'time5', 'time6']
-    template_name = 'traininglog/newlog1.html'
+class newlogView(LoginRequiredMixin, generic.CreateView):
+    model = Log
+    fields = ['title', 'description']
+    template_name = 'traininglog/newlog.html'
     
     def get_success_url(self):
         return reverse('traininglog:home')
@@ -46,14 +78,14 @@ class newlog1View(LoginRequiredMixin, generic.CreateView):
 @login_required
 def editlog(request, log_id):
     '''editing an answer'''
-    log = Log1.objects.get(id=log_id)
+    log = Log.objects.get(id=log_id)
 
     if request.method != 'POST':
         #when first start editing, pre-fill form with the current answer
-        form = LogForm1(instance=log)
+        form = LogForm(instance=log)
     else:
         #POST data submitted, proccesing date_added
-        form = LogForm1(instance=log, data=request.POST)
+        form = LogForm(instance=log, data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('traininglog:log', args=[log.id]))
@@ -64,7 +96,7 @@ def editlog(request, log_id):
 @login_required
 def deletelog(request, log_id):
     '''deleting an answer'''
-    log = Log1.objects.get(id=log_id)
+    log = Log.objects.get(id=log_id)
 
     if request.method == 'POST':
         log.delete()
@@ -78,35 +110,32 @@ class LogsView(generic.ListView):
     context_object_name = 'logs'
 
     def get_queryset(self):
-        return Log1.objects.filter(user=self.request.user).order_by('-pub_date') 
+        return Log.objects.filter(user=self.request.user).order_by('-pub_date') 
 
 def log(request, log_id):
     '''show the log on that date'''
-    log = Log1.objects.get(id=log_id)
+    log = Log.objects.get(id=log_id)
     context = {'log': log}
     return render(request, 'traininglog/log.html', context)
 
 @login_required
-def goal(request):
-    if request.method == 'POST':
+def newgoal(request):
+    if request.method != 'POST':
+        form = GoalForm()
+    else:
         form = GoalForm(data=request.POST)
-        if  form.is_valid():
+        if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("traininglog:home"))
 
-    else:
-        form = GoalForm()
+    context = {'form': form}
 
-    context = {
-        'form': form
-    }
-
-    return render(request, 'traininglog/goal.html', context)
+    return render(request, 'traininglog/newgoal.html', context)
 
 class newGoalView(LoginRequiredMixin, generic.CreateView):
     model = Goal
-    fields = ['goal_time', 'goal_date']
-    template_name = 'traininglog/goal.html'
+    fields = ['goal_description', 'goal_daily', 'goal_date']
+    template_name = 'traininglog/newgoal.html'
     
     def get_success_url(self):
         return reverse('traininglog:home')
@@ -121,5 +150,11 @@ class GoalsView(generic.ListView):
 
     def get_queryset(self):
         return Goal.objects.filter(user=self.request.user)
+
+def goal(request, goal_id):
+    '''show the log on that date'''
+    goal = Goal.objects.get(id=goal_id)
+    context = {'goal': goal}
+    return render(request, 'traininglog/goal.html', context)
 
    

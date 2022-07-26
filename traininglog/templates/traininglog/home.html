@@ -18,20 +18,20 @@ home
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">your goal is: {{ workout.goal }}</h5>
-            <p class="card-text">by {{ workout.goal_date }}</p>
+            <h5 class="card-title">your goal is: </h5>
+            <p class="card-text">by </p>
           </div>
         </div>
       </div>
     </div>
     <br>
-    <a class="btn btn-primary btn-lg" href="/newlog1" role="button">record log</a>
+    <a class="btn btn-primary btn-lg" href="/newlog" role="button">record log</a>
   {% else %}
     <div class="">
       <h1 class="display-4">Training Log</h1>
       <p class="lead">Dont let your dreams be dreams</p>
       <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="/users/register" role="button">Register!</a>
+        <a class="btn btn-primary btn-lg" href="/register" role="button">Register!</a>
       </p>
     </div>
   {% endif %}

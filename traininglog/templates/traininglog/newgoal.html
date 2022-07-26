@@ -6,12 +6,14 @@ goal
 
   {% block content %}
     <p></p>
-    <h4>Enter your goals for your next 2.4km!:</h4>
+    <h4>Enter your goals:</h4>
     <br>
-    <form action="{% url 'traininglog:goal' %}" method="post">
+    <form method="post">
       {% csrf_token %}
-      {{form.as_p}}
-      <button class="btn btn-outline-info" type="submit">Submit</button>
+      <p>Description: {{form.goal_description}}</p>
+      <p>Daily: {{form.goal_daily}}</p>
+      <p>Date: {{form.goal_date}}</p>
+      <input class="btn btn-primary" type="submit" value="Submit">
     </form>
   {% endblock content %}
 
