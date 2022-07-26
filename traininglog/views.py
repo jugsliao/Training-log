@@ -121,7 +121,6 @@ def goal(request):
         form = GoalForm(request.POST, instance=request.user.goal)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Your goal has been updated!')
             return HttpResponseRedirect(reverse("traininglog:home"))
 
     else:
