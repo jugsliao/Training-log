@@ -116,46 +116,6 @@ def log(request, log_id):
     return render(request, 'traininglog/log.html', context)
 
 @login_required
-def newgoal(request):
-    if request.method != 'POST':
-        form = GoalForm()
-    else:
-        form = GoalForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("traininglog:home"))
-
-    context = {'form': form}
-
-    return render(request, 'traininglog/newgoal.html', context)
-
-class newGoalView(LoginRequiredMixin, generic.CreateView):
-    model = Goal
-    form_class: GoalForm
-    fields = ['goal_description', 'goal_daily', 'goal_date']
-    template_name = 'traininglog/newgoal.html'
-    
-    def get_success_url(self):
-        return reverse('traininglog:home')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-class GoalsView(generic.ListView):
-    template_name = 'traininglog/goals.html'
-    context_object_name = 'goals'
-
-    def get_queryset(self):
-        return Goal.objects.filter(user=self.request.user)
-
-def goal(request, goal_id):
-    '''show the log on that date'''
-    goal = Goal.objects.get(id=goal_id)
-    context = {'goal': goal}
-    return render(request, 'traininglog/goal.html', context)
-
-@login_required
 def goal(request):
     if request.method == 'POST':
         form = GoalForm(request.POST, instance=request.user.goal)

@@ -5,11 +5,18 @@ goal
 {% endblock %}
 
     {% block content %}
+        <h4>Fitness goal: </h4>
+        <br>
         <form method="post">
           {% csrf_token %}
-          <p>Description: {{form.goal_description}}</p>
-          <p>Daily: {{form.goal_daily}}</p>
-          <p>Date: {{form.goal_date}}</p>
-          <input class="btn btn-primary" type="submit" value="Submit">
+          <strong>Desribe your goal</strong>
+          <p>{{form.goal_description}}</p>
+          <br>
+          <strong>Give yourself a daily training plan to achieve your goal</strong>
+          <p>{{form.goal_daily}}</p>
+          <br>
+          <strong>Date to achieve goal by</strong>
+          <p>{{form.goal_date}}</p>
+          <input class="btn btn-primary" type="submit" value="Update">
         </form>
     {% endblock content %}
