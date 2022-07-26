@@ -11,7 +11,7 @@ class Log(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="log", null=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
-    pub_date = models.DateField(auto_now_add=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
 
     @admin.display(
         boolean=True,
@@ -30,7 +30,7 @@ class Goal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="goal", null=True)
     goal_description = models.CharField(max_length=50, default='Keep healthy')
     goal_daily = models.CharField(max_length=50, default="run for 20 minutes")
-    goal_date = models.DateField(default=datetime.date.today)
+    goal_date = models.DateTimeField(default=datetime.date.today)
 
     def __str__(self):
         return "Goal"
