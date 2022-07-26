@@ -10,16 +10,23 @@ from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm
 from django.conf import settings
+import datetime
+from django.contrib.auth.models import User
 
-from .forms import LogForm, GoalForm
+from .forms import LogForm, GoalForm, DateInput, RegisterForm
 from .models import Log, Goal
 
 def registration(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
+            Goal.objects.create(
+                user = user,
+                goal_description = 'Keep healthy',
+                goal_daily = "run for 20 minutes",
+            )
             messages.success(request, 'Account was successfully created for ' + username)
             return redirect('login')
     else:
@@ -37,31 +44,21 @@ def my_login(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('first_app/home')
+        return redirect('/home')
 
 
 def logout_view(request):
     logout(request)
-    return redirect('first_app/home')
+    return redirect('/home')
 
 def login_error(request):
     if not request.user.is_authenticated:
         return render(request, 'login_error.html')
 
-# # Create your views here.
 def home(request):
     '''render the home page'''
-    '''
-    training pace = weeks left * 4seconds + target training pace
+    return render(request, 'traininglog/home.html')
     
-    '''
-    # goal = Goal.objects.filter(user=request.user)
-
-    data = {
-        # 'goal': goal
-    }
-
-    return render(request, 'traininglog/home.html', data)
 
 class newlogView(LoginRequiredMixin, generic.CreateView):
     model = Log
@@ -134,6 +131,7 @@ def newgoal(request):
 
 class newGoalView(LoginRequiredMixin, generic.CreateView):
     model = Goal
+    form_class: GoalForm
     fields = ['goal_description', 'goal_daily', 'goal_date']
     template_name = 'traininglog/newgoal.html'
     
@@ -155,6 +153,24 @@ def goal(request, goal_id):
     '''show the log on that date'''
     goal = Goal.objects.get(id=goal_id)
     context = {'goal': goal}
+    return render(request, 'traininglog/goal.html', context)
+
+@login_required
+def goal(request):
+    if request.method == 'POST':
+        form = GoalForm(request.POST, instance=request.user.goal)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your goal has been updated!')
+            return HttpResponseRedirect(reverse("traininglog:home"))
+
+    else:
+        form = GoalForm(instance=request.user.goal)
+
+    context = {
+        'form': form
+    }
+
     return render(request, 'traininglog/goal.html', context)
 
    

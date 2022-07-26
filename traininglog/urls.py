@@ -13,8 +13,7 @@ urlpatterns = [
     path('logs/', views.LogsView.as_view(), name='logs'),
     path('logs/<int:log_id>', views.log, name='log'),
 
-    # path('newgoal/', views.newgoal, name='newgoal'),
     path('newgoal/', views.newGoalView.as_view(), name='newgoal'),
     path('goals/', views.GoalsView.as_view(), name='goals'),
-    path('goals/<int:goal_id>', views.goal, name='goal'),
+    path('goal', views.goal, name='goal'),
 ]

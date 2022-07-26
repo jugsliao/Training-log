@@ -10,16 +10,16 @@ home
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">your training today is: 6x400m intervals</h5>
-            <p class="card-text">Try to hit 1.40 for every 400m and take a 1 minute break in between!</p>
+            <h5 class="card-title">Task for today: </h5>
+            <p class="card-text">{{user.goal.goal_daily}}</p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">your goal is: </h5>
-            <p class="card-text">by </p>
+            <h5 class="card-title">your goal is: {{user.goal.goal_description}}</h5>
+            <p class="card-text">by {{user.goal.goal_date}}</p>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@ home
       <h1 class="display-4">Training Log</h1>
       <p class="lead">Dont let your dreams be dreams</p>
       <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="/register" role="button">Register!</a>
+        <a class="btn btn-primary btn-lg" href="" role="button">Register!</a>
       </p>
     </div>
   {% endif %}

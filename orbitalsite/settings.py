@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'traininglog.apps.TraininglogConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
