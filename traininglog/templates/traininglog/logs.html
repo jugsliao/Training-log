@@ -5,15 +5,18 @@ Logs
 {% endblock %}
 
   {% block content %}
-  <h1>Track your logs here!</h1>
-      {% for log in logs %}
-        <ul>
-          <li>
-          <div class="log">
-            <p><a href="{% url 'traininglog:log' log.id %}">{{log}}</a></p>
-            <hr>
+  <h3>Track your logs here!</h3>
+  <hr>
+    {% for log in logs %}
+      <ul>
+        <li>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'traininglog:log' log.id %}">{{log.title}}</a></h5>
+              <p class="card-text">- {{log.pub_date}}</p>
+            </div>
           </div>
-          </li>
-        </ul>
-      {% endfor %}
+        </li>
+      </ul>
+    {% endfor %}
   {% endblock content %}

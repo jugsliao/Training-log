@@ -5,15 +5,15 @@ edit log
 {% endblock %}
 
   {% block content %}
-    <h4>Edit your log</h4>
+    <h3>Edit your log</h3>
     <hr>
       <form action="{% url 'traininglog:editlog' log.id %}" method="post">
         {% csrf_token %}
         <strong>Title:</strong>
         <p>{{form.title}}</p>
-        <br>
         <strong>Description:</strong>
         <p>{{form.description}}</p>
-        <input class="btn btn-primary" type="submit" value="Submit">
+        <br>
+        <button type="submit" class="btn btn-outline-dark">Save</button>
       </form>
   {% endblock content %}

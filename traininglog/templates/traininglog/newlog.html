@@ -5,15 +5,15 @@ newlog
 {% endblock %}
 
   {% block content %}
-    <h4>Record your training</h4>
+    <h3>Record your training</h3>
     <hr>
     <form method="post">
       {% csrf_token %}
       <strong>Title:</strong>
       <p>{{form.title}}</p>
-      <br>
       <strong>Description:</strong>
       <p>{{form.description}}</p>
-      <input class="btn btn-primary" type="submit" value="Submit">
+      <br>
+      <button type="submit" class="btn btn-outline-dark">Submit</button>
     </form>
   {% endblock content %}

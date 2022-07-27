@@ -6,11 +6,19 @@ home
 
   {% block content %}
   {% if user.is_authenticated %}
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Task for today: </h5>
+            <h5 class="card-title">Your goal is</h5>
+            <p class="card-text">{{user.goal.goal_description}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Task for today</h5>
             <p class="card-text">{{user.goal.goal_daily}}</p>
           </div>
         </div>
@@ -18,22 +26,22 @@ home
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Your goal is: {{user.goal.goal_description}}</h5>
-            <p class="card-text">by {{user.goal.goal_date}}</p>
+            <h5 class="card-title">Target goal by</h5>
+            <p class="card-text">{{user.goal.goal_date}}</p>
           </div>
         </div>
       </div>
     </div>
     <br>
-    <a href="/goal" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Update Goal</a>
+    <a href="/goal" class="btn btn-outline-primary" role="button" aria-pressed="true">Update Goal</a>
     <hr>
-    <a href="/newlog" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Record Log</a>
+    <a href="/newlog" class="btn btn-outline-primary" role="button" aria-pressed="true">Record Log</a>
   {% else %}
     <div class="">
       <h1 class="display-4">Training Log</h1>
       <p class="lead">Dont let your dreams be dreams</p>
       <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="/register" role="button">Register!</a>
+        <a class="btn btn-outline-primary" href="/register" role="button">Register!</a>
       </p>
     </div>
   {% endif %}

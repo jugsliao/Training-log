@@ -6,16 +6,16 @@ Login Here
 
 {% block content %}
   <h1>Login</h1>
-  <br>
+  <hr>
   {% for message in messages %}
 		<p>{{message}}</p>
 	{% endfor %}	
   <form method="post" class="from-group">
   	{% csrf_token %}
   	{{form.as_p}}
-    <p>Don't have an accoount? Create one now!</p>
-    <a href="/register">Sign up</a>
+    <button type="submit" class="btn btn-success">Login</button>
     <br>
-  	<button type="submit" class="btn btn-success">Login</button>
+    <br>
   </form>
+  <p>Don't have an accoount? <a href="/register">Create</a> one now!</p>
 {% endblock %}

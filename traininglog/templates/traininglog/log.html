@@ -5,13 +5,10 @@ log
 {% endblock %}
 
     {% block content %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{log.title}}</h5>
-              <p class="card-text">{{log.description}}</p>
-              <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-success">Edit</button></a>
-              <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
-            </div>
-          </div>
-        <br>
+      <h4>{{log.title}}</h4>
+      <hr>
+      <p>{{log.description}}</p>
+      <br>
+      <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-outline-success">Edit</button></a>
+      <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-outline-danger">Delete</button></a>
     {% endblock content %}

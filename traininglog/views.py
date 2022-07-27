@@ -66,7 +66,7 @@ class newlogView(LoginRequiredMixin, generic.CreateView):
     template_name = 'traininglog/newlog.html'
     
     def get_success_url(self):
-        return reverse('traininglog:home')
+        return reverse('traininglog:logs')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
