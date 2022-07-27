@@ -4,8 +4,8 @@
 Logs
 {% endblock %}
 
-  {% block content %}
-  <h3>Track your logs here!</h3>
+  {% block content %} 
+  <h3>Track your logs here! <a id="record-log" href="/newlog" class="btn btn-outline-dark float-right" role="button" aria-pressed="true">Record new Log</a></h3>  
   <hr>
     {% for log in logs %}
       <ul>
