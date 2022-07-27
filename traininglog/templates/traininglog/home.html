@@ -6,6 +6,8 @@ home
 
   {% block content %}
   {% if user.is_authenticated %}
+  <h2>Welcome, {{user.username}}!</h2>
+  <hr>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
         <div class="card">
@@ -33,9 +35,9 @@ home
       </div>
     </div>
     <br>
-    <a href="/goal" class="btn btn-outline-primary" role="button" aria-pressed="true">Update Goal</a>
+    <a href="/goal" class="btn btn-outline-primary" role="button" aria-pressed="true">Update goal</a>
     <hr>
-    <a href="/newlog" class="btn btn-outline-primary" role="button" aria-pressed="true">Record Log</a>
+    <a href="/newlog" class="btn btn-outline-primary" role="button" aria-pressed="true">Record log</a>
   {% else %}
     <div class="">
       <h1 class="display-4">Training Log</h1>
