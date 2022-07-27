@@ -28,8 +28,8 @@ class Log(models.Model):
 
 class Goal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="goal", null=True)
-    goal_description = models.CharField(max_length=50, default='Keep healthy')
-    goal_daily = models.CharField(max_length=50, default="run for 20 minutes")
+    goal_description = models.CharField(max_length=50, default='Run 2.4km in 9 minutes')
+    goal_daily = models.CharField(max_length=50, default="Do 6x400m intervals at 90s/400m")
     goal_date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
