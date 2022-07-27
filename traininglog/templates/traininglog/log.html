@@ -7,7 +7,7 @@ log
     {% block content %}
       <h4>{{log.title}}</h4>
       <hr>
-      <p>{{log.description}}</p>
+      <p>{{log.description|linebreaks}}</p>
       <br>
       <a href="{% url 'traininglog:editlog' log.id %}"><button type="button" class="btn btn-outline-success">Edit</button></a>
       <a href="{% url 'traininglog:deletelog' log.id %}"><button type="button" class="btn btn-outline-danger">Delete</button></a>

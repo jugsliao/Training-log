@@ -7,7 +7,7 @@ goal
     {% block content %}
       <h3>Fitness goal: </h3>
       <hr>
-      <form method="post"></form>
+      <form method="post">
         {% csrf_token %}
         <strong>Desribe your goal</strong>
         <p>{{form.goal_description}}</p>
