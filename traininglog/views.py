@@ -25,7 +25,7 @@ def registration(request):
             Goal.objects.create(
                 user = user,
                 goal_description = 'Keep healthy',
-                goal_daily = "run for 20 minutes",
+                goal_daily = "Run for 20 minutes",
             )
             messages.success(request, 'Account was successfully created for ' + username)
             return redirect('login')
